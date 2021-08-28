@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp
+spec:
+  # 🔧 Right now this manifest describes a ClusterIp Service, but it should be a NodePort Service, hmm... 🔍
+  # 💡 You only need one more line of YAML ;)
+  selector:
+    app: webapp
+  ports:
+  - port: 80 # The port on which the Service is available to other Pods
+    targetPort: 80
+    nodePort: 30000 # The port on which the Service is available externally

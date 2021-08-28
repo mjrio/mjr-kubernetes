@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapi
+spec:
+  # The type is commented out here, but the default type is ClusterIP so you're good to go 👌
+  # type: ClusterIP
+  selector:
+    app: webapi
+  ports:
+  - port: 80
+    targetPort: 80
