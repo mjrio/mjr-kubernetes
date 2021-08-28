@@ -81,12 +81,27 @@ kubectl get service webapp
 
 ...
 
-## 5.
+## 5. Configuring a Liveness Probe
 
+- 📖 [Liveness, Readiness and Startup Probes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 - 🤔 *Exercise file: /Exercises/Kubernetes/5-Deployment-Liveness-Probe.yaml*
 - 😏 *Solution file: /Solutions/Kubernetes/5-Deployment-Liveness-Probe.yaml*
 
-...
+> Kubernetes provides different types of probes to check the health of your application and act upon it. A **Liveness Probe** is used to restart a container when it's in a broken state (e.g. in case of a deadlock).
+
+Configure a Liveness probe for your webapi Deployment.
+
+1. Check the Kubernetes manifest in the exercise file to see how a Liveness Probe is configured and update your webapi using the `kubectl apply` command.
+
+2. Visit the webapp in your browser via the NodePort Service. The webapp will load, but it will not be able reach the webapi.
+
+3. Find out what's happening with the webapi Pod by executing the  following command a few times:
+
+```
+kubectl get pod webapi
+```
+
+4. Edit the Kubernetes manifest in the exercise file to fix the error and update your Deployment again with `kubectl apply`. Confirm that the webapi is running and not continuously restarting anymore.
 
 ## 6.
 

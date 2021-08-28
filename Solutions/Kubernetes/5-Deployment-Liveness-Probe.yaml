@@ -17,10 +17,8 @@ spec:
       - name: webapi
         image: <Image>
         livenessProbe:
-        # 🔧 Fix the error with the liveness probe 
-        # 💡 Sometimes two characters are enough to kill your application...
           httpGet:
-            path: /unhealthy
+            path: /healthy
             port: 80
           initialDelaySeconds: 3
           periodSeconds: 3
