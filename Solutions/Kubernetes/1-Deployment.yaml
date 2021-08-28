@@ -34,5 +34,5 @@ spec:
         app: webapi
     spec:
       containers:
-      - name: webapp
+      - name: webapi
         image: <Image>
