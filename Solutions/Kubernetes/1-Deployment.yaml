@@ -1,4 +1,3 @@
-# Create the Deployments with command 'kubectl apply -f 1-Deployment.yaml'
 apiVersion: apps/v1
 kind: Deployment
 metadata:

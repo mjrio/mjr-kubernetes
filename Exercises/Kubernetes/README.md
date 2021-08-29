@@ -10,7 +10,11 @@
 
 Create two Kubernetes Deployments, one for the webapp and one for the webapi. Use the Docker container images that we've build before during the Docker exercises. 
 
-1. Edit the Kubernetes manifest in the exercise file and use the `kubectl apply` command to create the Deployments in your cluster.
+1. Edit the Kubernetes manifest in the exercise file and use the `kubectl apply` command to create the Deployments in your cluster:
+
+```
+kubectl apply -f /Exercises/Kubernetes/1-Deployment.yaml
+```
 
 2. Check the Deployments:
    
