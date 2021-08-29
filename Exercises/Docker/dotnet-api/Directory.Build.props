@@ -1,0 +1,6 @@
+<Project>
+    <PropertyGroup>
+        <Nullable>enable</Nullable>
+        <warningsAsErrors>nullable</warningsAsErrors>
+    </PropertyGroup>
+</Project>
