@@ -1,3 +1,5 @@
+using dotnet_api.Controllers;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,7 +22,7 @@ namespace dotnet_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddOptions();
+            services.Configure<ApiOptions>(Configuration.GetSection(nameof(ApiOptions)));
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "dotnet_api", Version = "v1" }); });
         }
 

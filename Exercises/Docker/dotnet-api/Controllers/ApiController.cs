@@ -9,14 +9,14 @@ namespace dotnet_api.Controllers
     [Route("[controller]")]
     public class ApiController : ControllerBase
     {
-        private readonly IOptionsMonitor<ApiOptions> _apiOptions;
+        private readonly ApiOptions _apiOptions;
 
-        public ApiController(IOptionsMonitor<ApiOptions> apiOptions)
+        public ApiController(IOptionsSnapshot<ApiOptions> apiOptions)
         {
-            _apiOptions = apiOptions;
+            _apiOptions = apiOptions.Value;
         }
         [HttpGet]
         public IActionResult Get() 
-            => Ok($"[{DateTime.Now}] - {_apiOptions.CurrentValue.Message} rom dotnet app ");
+            => Ok($"[{DateTime.Now}] - {_apiOptions.Message} from dotnet app ");
     }
 }
