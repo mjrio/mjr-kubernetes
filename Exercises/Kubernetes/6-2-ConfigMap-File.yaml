@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webapi-config
+data:
+  override.json: |-
+    {
+      "<Key>": "<Value>"
+    }
+---
+# 🔧 Uncomment the manifest below when you are at step 3
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: webapi
+#   labels:
+#     app: webapi
+# spec:
+#   selector:
+#     matchLabels:
+#       app: webapi
+#   template:
+#     metadata:
+#       labels:
+#         app: webapi
+#     spec:
+#       containers:
+#       - name: webapi
+#         image: <Image>
+#         livenessProbe:
+#           httpGet:
+#             path: /healthy
+#             port: 80
+#           initialDelaySeconds: 3
+#           periodSeconds: 3
+#         volumeMounts:
+#           - name: webapi-config-volume
+#             mountPath: <MountPath>
+#             readOnly: true
+#       volumes:
+#         - name: webapi-config-volume
+#           configMap:
+#             name: webapi-config
