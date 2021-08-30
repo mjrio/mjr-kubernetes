@@ -17,12 +17,10 @@ namespace dotnet_api.Controllers
         }
         [HttpGet]
         public IActionResult Get() 
-            => Ok($"[{DateTime.Now}] - {_apiOptions.Message} from dotnet app ");
+            => Ok($"[{DateTime.Now}] - {_apiOptions.Message} from dotnet app");
+
         [HttpGet]
-        public IActionResult Healthy()
-            => Ok($"[{DateTime.Now}] - {_apiOptions.Message} from dotnet app ");
-        [HttpGet]
-        public IActionResult Get() 
-            => Ok($"[{DateTime.Now}] - {_apiOptions.Message} from dotnet app ");
+        public IActionResult Unhealthy() 
+            => BadRequest($"[{DateTime.Now}] - Something very bad happened");
     }
 }
