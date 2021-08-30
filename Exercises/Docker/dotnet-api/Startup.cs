@@ -22,6 +22,12 @@ namespace dotnet_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddCors(options => options.AddDefaultPolicy(builder => builder
+                                                                            .AllowAnyHeader()
+                                                                            .AllowCredentials()
+                                                                            .AllowAnyMethod()
+                                                                            .WithOrigins("http://localhost:4200")));
+            
             services.Configure<ApiOptions>(Configuration.GetSection(nameof(ApiOptions)));
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "dotnet_api", Version = "v1" }); });
         }
@@ -42,7 +48,11 @@ namespace dotnet_api
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapHealthChecks("/health");
+            });
         }
     }
 }
