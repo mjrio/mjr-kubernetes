@@ -1,6 +1,6 @@
 # Docker Exercises
 
-## 1.  Build a Docker container image
+## 1.  Build a container image
 
 - 📖 [docker build reference](https://docs.docker.com/engine/reference/commandline/build/)
 - 🐳 *Docker files:*
@@ -23,3 +23,31 @@ docker build -t dotnet-api .
 ```
 docker build -t angular-app .
 ```
+
+## 2.  Run a container
+
+- 📖 [docker run reference](https://docs.docker.com/engine/reference/commandline/run/)
+
+
+
+Start a container for the .NET api and the Angular app and examine the applications.
+
+1. Start a container for the .NET api:
+
+```
+docker run -dp 8080:80 dotnet-api
+```
+
+2. Visit and examine the .NET api in your browser at `http://localhost:8080`.
+
+3. Start a container for the Angular app:
+
+```
+docker run -dp 4200:4200 angular-app
+```
+
+4. Visit and examine the Angular app in your browser at `http://localhost:4200`.
+
+5. List the current containers using the `docker ps` command and copy the container ids.
+
+6. Stop both containers using the `docker stop` command followed by the container ids.
