@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: webapp
-        image: <Image>
+        image: angular-app
 ---
 # 🔧 Create a second Deployment for the webapi
 # 💡 Copy paste is your friend ;)

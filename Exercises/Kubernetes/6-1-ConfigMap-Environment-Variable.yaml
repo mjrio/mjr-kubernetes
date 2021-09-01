@@ -23,7 +23,7 @@ data:
 #     spec:
 #       containers:
 #       - name: webapp
-#         image: <Image>
+#         image: angular-app
 #         envFrom:
 #           - configMapRef:
 #               name: webapp-config
