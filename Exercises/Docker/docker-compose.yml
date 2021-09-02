@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  angular-app:
+    image: angular-app
+    build:
+      context: ./angular-app
+    ports:
+      - 4200:4200
+
+  dotnet-api:
+    image: dotnet-api
+    build:
+      context: ./dotnet-api
+    ports:
+      - 5000:5000
