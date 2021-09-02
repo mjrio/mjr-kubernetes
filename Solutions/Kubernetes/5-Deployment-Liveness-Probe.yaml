@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: webapi
-        image: <Image>
+        image: dotnet-api
         livenessProbe:
           httpGet:
             path: /healthy

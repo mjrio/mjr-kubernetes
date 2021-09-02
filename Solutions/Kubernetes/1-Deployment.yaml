@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: webapp
-        image: <Image>
+        image: angular-app
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -34,4 +34,4 @@ spec:
     spec:
       containers:
       - name: webapi
-        image: <Image>
+        image: dotnet-api
