@@ -3,14 +3,13 @@
 ## 1.  Build a container image
 
 - 📖 [docker build reference](https://docs.docker.com/engine/reference/commandline/build/)
-- 🐳 *Docker files:*
+- 🐳 *Dockerfiles:*
   - */Exercise/Docker/dotnet-api/Dockerfile*
   - */Exercises/Docker/angular-app/Dockerfile*
 
 > A **Docker container image** is a lightweight, standalone, executable package of software that includes everything needed to run an application. A **Dockerfile** contains instructions for building a container image.
 
 Create two container images, one for a .NET api and one for an Angular app. We will be using these container images throughout the workshop.
-
 
 1. Go to the directory where the Dockerfile for the .NET api is located and build the container image:
 
@@ -27,8 +26,6 @@ docker build -t angular-app .
 ## 2.  Run a container
 
 - 📖 [docker run reference](https://docs.docker.com/engine/reference/commandline/run/)
-
-
 
 Start a container for the .NET api and the Angular app and examine the applications.
 

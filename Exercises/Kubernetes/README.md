@@ -8,7 +8,7 @@
 
 > Usually you don't create a Pod directly. Instead you create a controller (a Kubernetes object which manages other Kubernetes objects). The controller that's most often used for managing Pods is a **Deployment**, which enables easy application updates and scaling.
 
-Create two Kubernetes Deployments, one for the webapp and one for the webapi. Use the Docker container images that we've build before during the Docker exercises. 
+Create two Kubernetes Deployments, one for the Angular app (webapp) and one for the .NET api (webapi). Use the Docker container images that we've build before during the Docker exercises. 
 
 1. Edit the Kubernetes manifest in the exercise file and use the `kubectl apply` command to create the Deployments in your cluster:
 
