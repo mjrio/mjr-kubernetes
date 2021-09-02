@@ -22,6 +22,7 @@ namespace dotnet_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddHealthChecks();
             services.AddCors(options => options.AddDefaultPolicy(builder => builder
                                                                             .AllowAnyHeader()
                                                                             .AllowCredentials()
