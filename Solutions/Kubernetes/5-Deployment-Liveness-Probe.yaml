@@ -16,6 +16,7 @@ spec:
       containers:
       - name: webapi
         image: dotnet-api
+        imagePullPolicy: Never
         livenessProbe:
           httpGet:
             path: /healthy

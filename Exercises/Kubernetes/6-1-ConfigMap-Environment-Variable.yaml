@@ -24,6 +24,7 @@ data:
 #       containers:
 #       - name: webapp
 #         image: angular-app
+#         imagePullPolicy: Never
 #         envFrom:
 #           - configMapRef:
 #               name: webapp-config

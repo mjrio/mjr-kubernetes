@@ -16,6 +16,7 @@ spec:
       containers:
       - name: webapp
         image: angular-app
+        imagePullPolicy: Never
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -35,3 +36,4 @@ spec:
       containers:
       - name: webapi
         image: dotnet-api
+        imagePullPolicy: Never

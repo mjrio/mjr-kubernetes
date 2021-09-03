@@ -16,6 +16,7 @@ spec:
       containers:
       - name: webapp
         image: angular-app
+        imagePullPolicy: Never
 ---
 # 🔧 Create a second Deployment for the webapi
 # 💡 Copy paste is your friend ;)

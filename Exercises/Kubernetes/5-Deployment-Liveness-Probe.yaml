@@ -16,6 +16,7 @@ spec:
       containers:
       - name: webapi
         image: dotnet-api
+        imagePullPolicy: Never
         livenessProbe:
         # 🔧 Fix the error with the liveness probe 
         # 💡 Sometimes two characters are enough to kill your application...
