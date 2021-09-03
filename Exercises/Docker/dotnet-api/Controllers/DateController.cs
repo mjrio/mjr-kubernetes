@@ -19,7 +19,7 @@ namespace dotnet_api.Controllers
         public IActionResult Get() 
             => Ok($"[{DateTime.Now}] - {_apiOptions.Message} from dotnet app");
 
-        [HttpGet]
+        [HttpGet("Unhealthy")]
         public IActionResult Unhealthy() 
             => BadRequest($"[{DateTime.Now}] - Something very bad happened");
     }
