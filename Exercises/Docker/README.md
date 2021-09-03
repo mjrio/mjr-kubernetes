@@ -23,6 +23,8 @@ docker build -t dotnet-api .
 docker build -t angular-app .
 ```
 
+3. Verify that the images are built using the command `docker images`.
+
 ## 2.  Run a container
 
 - 📖 [docker run reference](https://docs.docker.com/engine/reference/commandline/run/)
@@ -35,7 +37,7 @@ Start a container for the .NET api and the Angular app and examine the applicati
 docker run -dp 8080:80 dotnet-api
 ```
 
-2. Visit and examine the .NET api in your browser at `http://localhost:8080`.
+2. Visit and examine the .NET api in your browser at `http://localhost:8080/api/date/`.
 
 3. Start a container for the Angular app:
 
