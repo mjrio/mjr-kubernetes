@@ -76,7 +76,7 @@ Create a NodePort Service to listen for traffic coming into your cluster and dir
 kubectl get service webapp
 ```
 
-1. Visit the webapp in your browser, but this time without port-forwarding. Use the external IP address from the NodePort Service and port 30000. Confirm that it's working correctly.
+3. Visit the webapp in your browser, but this time without port-forwarding. Use the external IP address from the NodePort Service and port 30000. Confirm that it's working correctly.
 
 ## 4.
 
