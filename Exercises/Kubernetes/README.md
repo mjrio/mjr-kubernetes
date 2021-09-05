@@ -13,7 +13,7 @@ Create two Kubernetes Deployments, one for the Angular app (webapp) and one for 
 1. Edit the Kubernetes manifest in the exercise file and use the `kubectl apply` command to create the Deployments in your cluster:
 
 ```
-kubectl apply -f /Exercises/Kubernetes/1-Deployment.yaml
+kubectl apply -f ./Exercises/Kubernetes/1-Deployment.yaml
 ```
 
 2. Check the Deployments:
@@ -31,12 +31,12 @@ kubectl get pods
 4. Delete the webapp Pod:
 
 ```
-kubectl delete pod webapp
+kubectl delete pod -l app=webapp
 ```
 
 5.  Check the webapp Pod again. When you delete a Pod that is controlled by a Deployment, the Deployment will see there is no Pod that matches its label selector, so it creates a new one.
 ```
-kubectl get pod webapp
+kubectl get pod -l app=webapp
 ```
 
 ## 2. Internal traffic: Create a ClusterIP Service
@@ -51,12 +51,12 @@ Create a ClusterIP Service to enable communication between the webapp and webapi
 1. Set up port forwarding to the webapp in your cluster:
 
 ```
-kubectl port-forward pods/webapp 8080:80
+kubectl port-forward deployments/webapp 4200:80
 ```
 
-1. Visit the webapp in your browser on http://localhost:8080. The webapp will load, but it will not be able reach the webapi. The webapp tries to communicate with the webapi using the domain name 'webapi', but this name is not registered yet with the internal DNS of Kubernetes.
+1. Visit the webapp in your browser on http://localhost:4200. The webapp will load, but it will not be able reach the webapi. The webapp tries to communicate with the webapi using the domain name 'webapi', but this name is not registered yet with the internal DNS of Kubernetes.
 
-2. Create a ClusterIP Service for the webapi Pod using the Kubernetes manifest in the exercise file and the `kubectl apply` command. Confirm that the webapp is working correctly.
+2. Create a ClusterIP Service for the webapi Pod using the Kubernetes manifest in the exercise file and the `kubectl apply` command. Confirm that the webapp is now able to reach the webapi.
 
 ## 3. External traffic: Create a NodePort Service
 
@@ -76,7 +76,7 @@ Create a NodePort Service to listen for traffic coming into your cluster and dir
 kubectl get service webapp
 ```
 
-1. Visit the webapp in your browser, but this time without port-forwarding. Use the external IP address from the NodePort Service and port 30000. Confirm that it's working correctly.
+3. Visit the webapp in your browser, but this time without port-forwarding. Use the external IP address from the NodePort Service and port 30000. Confirm that it's working correctly.
 
 ## 4.
 
@@ -102,7 +102,7 @@ Configure a Liveness probe for your webapi Deployment.
 3. Find out what's happening with the webapi Pod by executing the  following command a few times:
 
 ```
-kubectl get pod webapi
+kubectl get pod -l app=webapi
 ```
 
 4. Edit the Kubernetes manifest in the exercise file to fix the error and update your Deployment again with `kubectl apply`. Confirm that the webapi is running and not continuously restarting anymore.
