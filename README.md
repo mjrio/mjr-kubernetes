@@ -6,7 +6,7 @@
 
 1. Download and Install [Docker Desktop](https://www.docker.com/products/docker-desktop).
 
-2. Open Docker Desktop and go to **Preferences** > **Kubernetes** en click '**Enable Kubernetes**'.
+2. Open Docker Desktop and go to **Preferences** > **Kubernetes** and click '**Enable Kubernetes**'.
 
 ![Enable Kubernetes](enable-kubernetes.png "Enable Kubernetes")
 
@@ -37,4 +37,10 @@ docker pull mcr.microsoft.com/dotnet/sdk:5.0
 
 ```
 docker pull node:16.8.0-alpine3.13
+```
+
+4. Pull Nginx:
+
+```
+docker pull nginx:1.20.1-alpine
 ```
