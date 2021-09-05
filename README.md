@@ -13,30 +13,27 @@
 3. Verify that Docker and kubectl are correctly installed using the following commands:
 
 ```
-docker
-```
-
-```
-kubectl
+docker --version
+kubectl version
 ```
 
 ### Preload Docker images
 
 The internet connection at the hotel might not be great, so it's best to pull the images we're going to use at home.
 
-1. Pull the ASP.NET 5 Runtime
+1. Pull the ASP.NET 5 Runtime:
    
 ```
 docker pull mcr.microsoft.com/dotnet/aspnet:5.0
 ```
 
-2. Pull the .NET 5 SDK
+2. Pull the .NET 5 SDK:
 
 ```
 docker pull mcr.microsoft.com/dotnet/sdk:5.0
 ```
 
-3. Pull Node
+3. Pull Node:
 
 ```
 docker pull node:16.8.0-alpine3.13
