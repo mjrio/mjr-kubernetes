@@ -102,7 +102,7 @@ Configure a Liveness probe for your webapi Deployment.
 3. Find out what's happening with the webapi Pod by executing the  following command a few times:
 
 ```
-kubectl get pod webapi
+kubectl get pod -l app=webapi
 ```
 
 4. Edit the Kubernetes manifest in the exercise file to fix the error and update your Deployment again with `kubectl apply`. Confirm that the webapi is running and not continuously restarting anymore.
