@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, Subject, Subscription, timer } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -11,22 +11,35 @@ import { environment } from 'src/environments/environment';
 })
 export class AppComponent {
     public data: string[] = [];
-    private pollingSubject = new Subject<boolean>();
+    public isPolling = false;
+
+    private pollingSubscription = new Subscription();
+
     constructor(private httpClient: HttpClient) {}
     public getData(): void {
-        this.httpClient
-            .get<string>(`${environment.dotnetApiUrl}/date`)
+        this.getDataRequest().subscribe();
+    }
+    private getDataRequest(): Observable<void> {
+        return this.httpClient
+            .get(`${environment.dotnetApiUrl}/date`, {
+                responseType: 'text',
+            })
             .pipe(
-                tap((text) => {
+                map((text) => {
                     this.data = [text, ...this.data];
                 })
-            )
-            .subscribe();
+            );
     }
     public startPolling(): void {
-        this.pollingSubject.next(true);
+        this.isPolling = true;
+        this.pollingSubscription.add(
+            timer(0, 1000)
+                .pipe(switchMap(() => this.getDataRequest()))
+                .subscribe()
+        );
     }
     public stopPolling(): void {
-        this.pollingSubject.next(false);
+        this.isPolling = false;
+        this.pollingSubscription.unsubscribe();
     }
 }

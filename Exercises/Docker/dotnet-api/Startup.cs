@@ -1,3 +1,5 @@
+using System;
+
 using dotnet_api.Controllers;
 
 using Microsoft.AspNetCore.Builder;
@@ -43,6 +45,7 @@ namespace dotnet_api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "dotnet_api v1"));
             }
 
+            app.UseCors();
             app.UseRouting();
 
             app.UseAuthorization();
@@ -50,7 +53,8 @@ namespace dotnet_api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHealthChecks("/health");
+                endpoints.MapHealthChecks("/healthy");
+                endpoints.MapGet("/unhealthy", (_) => throw new InvalidOperationException("Something very bad happened"));
             });
         }
     }
