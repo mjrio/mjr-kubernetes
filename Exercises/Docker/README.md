@@ -11,16 +11,16 @@
 
 Create two container images, one for a .NET api and one for an Angular app. We will be using these container images throughout the workshop.
 
-1. Go to the directory where the Dockerfile for the .NET api is located and build the container image:
+1. Build the container image for the .NET api:
 
 ```
-docker build -t dotnet-api .
+docker build -t dotnet-api .\Exercises\Docker\dotnet-api
 ```
 
 2. Do the same for the Angular app:
 
 ```
-docker build -t angular-app .
+docker build -t angular-app .\Exercises\Docker\angular-app
 ```
 
 3. Verify that the images are built using the command `docker images`.
