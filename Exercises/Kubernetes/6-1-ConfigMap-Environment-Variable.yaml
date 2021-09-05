@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: webapp-config
 data:
-  <key>: <value>
+  Logging_LogLevel_Default: "Trace"
 ---
 # 🔧 Uncomment the manifest below when you are at step 3
 # apiVersion: apps/v1
