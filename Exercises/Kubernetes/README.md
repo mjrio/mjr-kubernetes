@@ -51,12 +51,12 @@ Create a ClusterIP Service to enable communication between the webapp and webapi
 1. Set up port forwarding to the webapp in your cluster:
 
 ```
-kubectl port-forward pods/webapp 8080:80
+kubectl port-forward deployments/webapp 4200:80
 ```
 
-1. Visit the webapp in your browser on http://localhost:8080. The webapp will load, but it will not be able reach the webapi. The webapp tries to communicate with the webapi using the domain name 'webapi', but this name is not registered yet with the internal DNS of Kubernetes.
+1. Visit the webapp in your browser on http://localhost:4200. The webapp will load, but it will not be able reach the webapi. The webapp tries to communicate with the webapi using the domain name 'webapi', but this name is not registered yet with the internal DNS of Kubernetes.
 
-2. Create a ClusterIP Service for the webapi Pod using the Kubernetes manifest in the exercise file and the `kubectl apply` command. Confirm that the webapp is working correctly.
+2. Create a ClusterIP Service for the webapi Pod using the Kubernetes manifest in the exercise file and the `kubectl apply` command. Confirm that the webapp is now able to reach the webapi.
 
 ## 3. External traffic: Create a NodePort Service
 
