@@ -34,10 +34,10 @@ Start a container for the .NET api and the Angular app and examine the applicati
 1. Start a container for the .NET api:
 
 ```
-docker run -dp 8080:80 dotnet-api
+docker run -dp 5000:80 dotnet-api
 ```
 
-2. Visit and examine the .NET api in your browser at `http://localhost:8080/api/date/`.
+2. Visit and examine the .NET api in your browser at `http://localhost:5000/api/date/`.
 
 3. Start a container for the Angular app:
 
@@ -45,7 +45,7 @@ docker run -dp 8080:80 dotnet-api
 docker run -dp 4200:4200 angular-app
 ```
 
-4. Visit and examine the Angular app in your browser at `http://localhost:4200`.
+4. Visit and examine the Angular app in your browser at `http://localhost:4200/`.
 
 5. List the current containers using the `docker ps` command and copy the container ids.
 
