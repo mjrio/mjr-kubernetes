@@ -13,7 +13,7 @@ Create two Kubernetes Deployments, one for the Angular app (webapp) and one for 
 1. Edit the Kubernetes manifest in the exercise file and use the `kubectl apply` command to create the Deployments in your cluster:
 
 ```
-kubectl apply -f /Exercises/Kubernetes/1-Deployment.yaml
+kubectl apply -f ./Exercises/Kubernetes/1-Deployment.yaml
 ```
 
 2. Check the Deployments:
@@ -31,12 +31,12 @@ kubectl get pods
 4. Delete the webapp Pod:
 
 ```
-kubectl delete pod webapp
+kubectl delete pod -l app=webapp
 ```
 
 5.  Check the webapp Pod again. When you delete a Pod that is controlled by a Deployment, the Deployment will see there is no Pod that matches its label selector, so it creates a new one.
 ```
-kubectl get pod webapp
+kubectl get pod -l app=webapp
 ```
 
 ## 2. Internal traffic: Create a ClusterIP Service
