@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject, Subscription, timer } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { Observable, of, Subscription, timer } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -27,6 +27,13 @@ export class AppComponent {
             .pipe(
                 map((text) => {
                     this.data = [text, ...this.data];
+                }),
+                catchError((error) => {
+                    const errorMessage = `[${new Date().toUTCString()}] - ${
+                        error.message
+                    }`;
+                    this.data = [errorMessage, ...this.data];
+                    return of(error);
                 })
             );
     }
