@@ -1,7 +1,6 @@
 # Multi-stage
 # 1) Node image for building frontend assets
 # 2) nginx stage to serve frontend assets
-
 # Name the node stage "builder"
 FROM node:16.8.0-alpine3.13 AS builder
 # Set working directory
@@ -18,6 +17,7 @@ WORKDIR /usr/share/nginx/html
 # Remove default nginx static assets
 RUN rm -rf ./*
 # Copy static assets from builder stage
-COPY --from=builder /app/dist/angular-nginx-docker .
+COPY --from=builder /app/dist/angular-app .
 # Containers run nginx with global directives and daemon off
+EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
