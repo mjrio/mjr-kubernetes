@@ -1,11 +1,11 @@
 # Docker Exercises
 
-## 1.  Build a container image
+## 1. Build a container image
 
 - 📖 [docker build reference](https://docs.docker.com/engine/reference/commandline/build/)
-- 🐳 *Dockerfiles:*
-  - */Exercise/Docker/dotnet-api/Dockerfile*
-  - */Exercises/Docker/angular-app/Dockerfile*
+- 🐳 _Dockerfiles:_
+  - _/Exercise/Docker/dotnet-api/Dockerfile_
+  - _/Exercises/Docker/angular-app/Dockerfile_
 
 > A **Docker container image** is a lightweight, standalone, executable package of software that includes everything needed to run an application. A **Dockerfile** contains instructions for building a container image.
 
@@ -25,7 +25,7 @@ docker build -t angular-app .\Exercises\Docker\angular-app
 
 3. Verify that the images are built using the command `docker images`.
 
-## 2.  Run a container
+## 2. Run a container
 
 - 📖 [docker run reference](https://docs.docker.com/engine/reference/commandline/run/)
 
@@ -42,7 +42,7 @@ docker run -dp 5000:80 dotnet-api
 3. Start a container for the Angular app:
 
 ```
-docker run -dp 4200:4200 angular-app
+docker run -dp 4200:80 angular-app
 ```
 
 4. Visit and examine the Angular app in your browser at `http://localhost:4200/`.
