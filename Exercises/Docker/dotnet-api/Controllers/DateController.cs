@@ -22,7 +22,7 @@ namespace dotnet_api.Controllers
         public IActionResult Get()
         {
             _logger.LogTrace("[{Now}] - Trace log from GET date", DateTime.Now);
-            return Ok($"[{DateTime.Now}] - {_apiOptions.Message} from dotnet app");
+            return Ok($"[{DateTime.Now}] - {_apiOptions.Message} from {Environment.GetEnvironmentVariable("HOSTNAME")}");
         }
     }
 }

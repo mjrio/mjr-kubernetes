@@ -78,14 +78,39 @@ kubectl get service webapp
 
 3. Visit the webapp in your browser, but this time without port-forwarding. Use the external IP address from the NodePort Service and port 30000. Confirm that it's working correctly.
 
-## 4.
+## 4. Scaling applications: Scale out a Deployment
 
-- 🤔 *Exercise file: /Exercises/Kubernetes/4-Deployment-Rolling-Update.yaml*
-- 😏 *Solution file: /Solutions/Kubernetes/4-Deployment-Rolling-Update.yaml*
+- 📖 [Deployment documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+- 🤔 *Exercise file: /Exercises/Kubernetes/4-Deployment-Replicas.yaml*
+- 😏 *Solution file: /Solutions/Kubernetes/4-Deployment-Replicas.yaml*
 
-...
+> You may want to scale a Deployment to keep up with increasing traffic. Horizontally scaling is accomplished by changing the number of **replicas**.
 
-## 5. Health checks: Configuring a Liveness Probe
+1. Edit the Kubernetes manifest in the exercise file and use the `kubectl apply` command to update and scale the Deployment.
+
+2. Use the `kubectl describe` command to get a detailed description of the Deployment and confirm that the number of desired replicas is set to 2:
+
+```
+kubectl describe deployment webapi
+```
+
+3. List the webapi Pods and confirm that there are two replicas running:
+
+```
+kubectl get pods -l app=webapi
+```
+
+4. Visit the webapp in your browser, repeatedly send requests to the webapi and examine the responses. There are now two Pods that match the label selector of the ClusterIP Service, hence the Service uses load balancing to distribute traffic to both Pods.
+
+5. Scale in again to one replica using the `kubectl scale` command:
+
+```
+kubectl scale deployment webapi --replicas=1
+```
+
+6. List the webapi Pods again and confirm that there is only one Pod running.
+
+## 5. Health checks: Configure a Liveness Probe
 
 - 📖 [Liveness, Readiness and Startup Probes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 - 🤔 *Exercise file: /Exercises/Kubernetes/5-Deployment-Liveness-Probe.yaml*

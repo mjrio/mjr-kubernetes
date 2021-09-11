@@ -1,0 +1,21 @@
+# 🔧 Run two instances of the webapi
+# 💡 The documentation links are there for a reason ;)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapi
+  labels:
+    app: webapi
+spec:
+  selector:
+    matchLabels:
+      app: webapi
+  template:
+    metadata:
+      labels:
+        app: webapi
+    spec:
+      containers:
+      - name: webapi
+        image: dotnet-api
+        imagePullPolicy: Never
