@@ -167,12 +167,20 @@ kubectl describe configmap webapi-logging-config
 
 7. Check the logs using the `kubectl logs` command and confirm that you can see a trace log for each webapi request.
 
-Create a ConfigMap to provide configuration data for your webapi Pod as a JSON file overriding the default settings.
+Create a ConfigMap to provide configuration data for your webapi Pod as a JSON file overriding the default response message.
 
-1. Create a ConfigMap for the webapi containing JSON data by using the `kubectl apply` command with the Kubernetes manifest in the second exercise file.
+1. Create a ConfigMap for the webapi containing JSON data by using the `kubectl apply` command with the Kubernetes manifest in the second exercise file. The ConfigMap contains JSON data to override the default response message.
 
 2. Use the `kubectl describe` command to check the JSON data that's stored in the ConfigMap.
 
-3. Create a volume from the ConfigMap and mount it to the container file system by uncommenting the updated Deployment manifest in the second exercise file.
+3. Create a volume from the ConfigMap and mount it to the container file system by uncommenting the updated Deployment manifest in the second exercise file and using the `kubectl apply` command again.
 
-4. Visit the webapp in your browser and confirm that the configuration has been applied.
+4. Get a shell to the running webapi container using the following command:
+
+```
+kubectl exec -it deployments/webapi -- /bin/bash
+```
+
+5. Explore the file system and see if you can find and read the contents of the JSON file that you mounted to the container. The Kubernetes manifest you've just applied should help you to find the path to where the file is stored.
+
+6. Visit the webapp in your browser and send a new request to the webapi. Confirm that the webapi replies with the new response message.
