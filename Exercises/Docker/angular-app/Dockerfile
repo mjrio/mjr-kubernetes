@@ -12,12 +12,21 @@ RUN npm i && npm run build
 
 # nginx state for serving content
 FROM nginx:1.20.1-alpine
+
+# Upate the default nginx config
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # Set working directory to nginx asset directory
 WORKDIR /usr/share/nginx/html
 # Remove default nginx static assets
 RUN rm -rf ./*
+# From environment variable
+ARG dotnetApiUrl="http://localhost:5000/api"
+ENV DOTNET_API_URL=${dotnetApiUrl}
 # Copy static assets from builder stage
 COPY --from=builder /app/dist/angular-app .
 # Containers run nginx with global directives and daemon off
 EXPOSE 80
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+# When the container starts, replace the env.js with values from environment variables
+CMD ["/bin/sh",  "-c",  "envsubst < /usr/share/nginx/html/assets/env.template.js > /usr/share/nginx/html/assets/env.js && exec nginx -g 'daemon off;'"]

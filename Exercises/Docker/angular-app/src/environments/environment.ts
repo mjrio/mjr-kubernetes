@@ -2,9 +2,18 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+interface Window {
+    env: {
+        prod: boolean;
+        dotnetApiUrl: string;
+    };
+}
+
+const windowEnv = (window as unknown as Window).env;
+
 export const environment = {
-    production: false,
-    dotnetApiUrl: 'http://localhost:5000/api',
+    production: windowEnv.prod || false,
+    dotnetApiUrl: windowEnv.dotnetApiUrl || '',
 };
 
 /*

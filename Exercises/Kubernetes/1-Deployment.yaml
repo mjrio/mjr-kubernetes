@@ -17,6 +17,12 @@ spec:
       - name: webapp
         image: angular-app
         imagePullPolicy: Never
----
+        env:
+          - name: DOTNET_API_URL
+            # Using the nginx reverse proxy on the angular app to proxy_pass to the backend
+            # In production, this would be the actual backend URL that uses an ingress route
+            value: "/api"
+          - name: PROD
+            value: "true"
 # 🔧 Create a second Deployment for the webapi
 # 💡 Copy paste is your friend ;)
