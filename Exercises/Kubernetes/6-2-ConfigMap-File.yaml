@@ -1,11 +1,13 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: webapi-config
+  name: webapi-apioptions-config
 data:
-  override.json: |-
+  appsettings.override.json: |-
     {
-      "<Key>": "<Value>"
+      "ApiOptions": {
+        "Message": "Hello from the ConfigMap ;)"
+      }
     }
 ---
 # 🔧 Uncomment the manifest below when you are at step 3
@@ -34,11 +36,14 @@ data:
 #             port: 80
 #           initialDelaySeconds: 3
 #           periodSeconds: 3
+#         envFrom:
+#           - configMapRef:
+#               name: webapi-logging-config
 #         volumeMounts:
-#           - name: webapi-config-volume
-#             mountPath: <MountPath>
+#           - name: webapi-apioptions-config-volume
+#             mountPath: /app/config
 #             readOnly: true
 #       volumes:
-#         - name: webapi-config-volume
+#         - name: webapi-apioptions-config-volume
 #           configMap:
-#             name: webapi-config
+#             name: webapi-apioptions-config

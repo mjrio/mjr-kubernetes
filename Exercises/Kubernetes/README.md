@@ -70,22 +70,43 @@ Create a NodePort Service to listen for traffic coming into your cluster and dir
 
 1. Edit the Kubernetes manifest in the exercise file and use the `kubectl apply` command to create the NodePort Service.
 
-2. Get the external IP address from the NodePort Service:
+2. Visit the webapp in your browser, but this time without port-forwarding. The webapp should be exposed at http://localhost:30000. Confirm that it's working correctly.
+
+## 4. Scaling applications: Scale out a Deployment
+
+- 📖 [Deployment documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+- 🤔 *Exercise file: /Exercises/Kubernetes/4-Deployment-Replicas.yaml*
+- 😏 *Solution file: /Solutions/Kubernetes/4-Deployment-Replicas.yaml*
+
+> You may want to scale a Deployment to keep up with increasing traffic. Horizontally scaling is accomplished by changing the number of **replicas**.
+
+Scale out the webapi Deployment to two replicas.
+
+1. Edit the Kubernetes manifest in the exercise file and use the `kubectl apply` command to update and scale the Deployment.
+
+2. Use the `kubectl describe` command to get a detailed description of the Deployment and confirm that the number of desired replicas is set to 2:
 
 ```
-kubectl get service webapp
+kubectl describe deployment webapi
 ```
 
-3. Visit the webapp in your browser, but this time without port-forwarding. Use the external IP address from the NodePort Service and port 30000. Confirm that it's working correctly.
+3. List the webapi Pods and confirm that there are two replicas running:
 
-## 4.
+```
+kubectl get pods -l app=webapi
+```
 
-- 🤔 *Exercise file: /Exercises/Kubernetes/4-Deployment-Rolling-Update.yaml*
-- 😏 *Solution file: /Solutions/Kubernetes/4-Deployment-Rolling-Update.yaml*
+4. Visit the webapp in your browser, repeatedly send requests to the webapi and examine the responses. There are now two Pods that match the label selector of the ClusterIP Service, hence the Service uses load balancing to distribute traffic to both Pods.
 
-...
+5. Scale in again to one replica using the `kubectl scale` command:
 
-## 5. Health checks: Configuring a Liveness Probe
+```
+kubectl scale deployment webapi --replicas=1
+```
+
+6. List the webapi Pods again and confirm that there is only one Pod running.
+
+## 5. Health checks: Configure a Liveness Probe
 
 - 📖 [Liveness, Readiness and Startup Probes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 - 🤔 *Exercise file: /Exercises/Kubernetes/5-Deployment-Liveness-Probe.yaml*
@@ -116,26 +137,44 @@ kubectl get pod -l app=webapi
 
 > A **ConfigMap** is a storage unit intended for small amounts of non-confidential data. This data can be consumed by Pods as environment variables or files.
 
-Create a ConfigMap to provide configuration data for your webapp Pod as environment variables overriding the default settings.
+Create a ConfigMap to provide configuration data for your webapi Pod as environment variables overriding the default loglevel.
 
-1. Create a ConfigMap for the webapp consisting of key-value pair data by using the `kubectl apply` command with the Kubernetes manifest in the first exercise file.
+1. Visit the webapp in your browser and send some requests to the webapi.
 
-2. Use the `kubectl describe` command to get a detailed description of the ConfigMap, including the data:
+2. Use the `kubectl logs` command to check the logs of the webapi. No trace logs will be visible because the default loglevel is set to 'Information'.
 
 ```
-kubectl describe configmap webapi-config
+kubectl logs deployments/webapi
 ```
 
-3. Consume the ConfigMap as environment variables by uncommenting the updated Deployment manifest in the first exercise file.
+3. Create a ConfigMap for the webapi consisting of key-value pair data by using the `kubectl apply` command with the Kubernetes manifest in the first exercise file. The ConfigMap contains a key-value pair to override and set the default logging level to 'Trace'.
 
-4. Visit the webapp in your browser and confirm that the configuration has been applied.
+4. Use the `kubectl describe` command to get a detailed description of the ConfigMap, including the key-value pair data:
 
-Create a ConfigMap to provide configuration data for your webapi Pod as a JSON file overriding the default settings.
+```
+kubectl describe configmap webapi-logging-config
+```
 
-1. Create a ConfigMap for the webapi containing JSON data by using the `kubectl apply` command with the Kubernetes manifest in the second exercise file.
+5. Consume the ConfigMap as environment variables by uncommenting the updated Deployment manifest in the first exercise file and using the `kubectl apply` command again.
+
+6. Visit the webapp in your browser and send some more requests to the webapi.
+
+7. Check the logs using the `kubectl logs` command and confirm that you can see a trace log for each webapi request.
+
+Create a ConfigMap to provide configuration data for your webapi Pod as a JSON file overriding the default response message.
+
+1. Create a ConfigMap for the webapi containing JSON data by using the `kubectl apply` command with the Kubernetes manifest in the second exercise file. The ConfigMap contains JSON data to override the default response message.
 
 2. Use the `kubectl describe` command to check the JSON data that's stored in the ConfigMap.
 
-3. Create a volume from the ConfigMap and mount it to the container file system by uncommenting the updated Deployment manifest in the second exercise file.
+3. Create a volume from the ConfigMap and mount it to the container file system by uncommenting the updated Deployment manifest in the second exercise file and using the `kubectl apply` command again.
 
-4. Visit the webapp in your browser and confirm that the configuration has been applied.
+4. Get a shell to the running webapi container using the following command:
+
+```
+kubectl exec -it deployments/webapi -- /bin/bash
+```
+
+5. Explore the file system and see if you can find and read the contents of the JSON file that you mounted to the container. The Kubernetes manifest you've just applied should help you to find the path to where the file is stored.
+
+6. Visit the webapp in your browser and send a new request to the webapi. Confirm that the webapi replies with the new response message.
