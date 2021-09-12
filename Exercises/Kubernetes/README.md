@@ -70,13 +70,7 @@ Create a NodePort Service to listen for traffic coming into your cluster and dir
 
 1. Edit the Kubernetes manifest in the exercise file and use the `kubectl apply` command to create the NodePort Service.
 
-2. Get the external IP address from the NodePort Service:
-
-```
-kubectl get service webapp
-```
-
-3. Visit the webapp in your browser, but this time without port-forwarding. Use the external IP address from the NodePort Service and port 30000. Confirm that it's working correctly.
+2. Visit the webapp in your browser, but this time without port-forwarding. The webapp should be exposed at http://localhost:30000. Confirm that it's working correctly.
 
 ## 4. Scaling applications: Scale out a Deployment
 
