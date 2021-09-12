@@ -3,12 +3,12 @@
 ## 1. Running applications: Create a Deployment
 
 - 📖 [Deployment documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
-- 🤔 *Exercise file: /Exercises/Kubernetes/1-Deployment.yaml*
-- 😏 *Solution file: /Solutions/Kubernetes/1-Deployment.yaml*
+- 🤔 _Exercise file: /Exercises/Kubernetes/1-Deployment.yaml_
+- 😏 _Solution file: /Solutions/Kubernetes/1-Deployment.yaml_
 
 > Usually you don't create a Pod directly. Instead you create a controller (a Kubernetes object which manages other Kubernetes objects). The controller that's most often used for managing Pods is a **Deployment**, which enables easy application updates and scaling.
 
-Create two Kubernetes Deployments, one for the Angular app (webapp) and one for the .NET api (webapi). Use the Docker container images that we've build before during the Docker exercises. 
+Create two Kubernetes Deployments, one for the Angular app (webapp) and one for the .NET api (webapi). Use the Docker container images that we've build before during the Docker exercises.
 
 1. Edit the Kubernetes manifest in the exercise file and use the `kubectl apply` command to create the Deployments in your cluster:
 
@@ -17,7 +17,7 @@ kubectl apply -f ./Exercises/Kubernetes/1-Deployment.yaml
 ```
 
 2. Check the Deployments:
-   
+
 ```
 kubectl get deployments
 ```
@@ -35,6 +35,7 @@ kubectl delete pod -l app=webapp
 ```
 
 5.  Check the webapp Pod again. When you delete a Pod that is controlled by a Deployment, the Deployment will see there is no Pod that matches its label selector, so it creates a new one.
+
 ```
 kubectl get pod -l app=webapp
 ```
@@ -42,9 +43,9 @@ kubectl get pod -l app=webapp
 ## 2. Internal traffic: Create a ClusterIP Service
 
 - 📖 [Service documentation](https://kubernetes.io/docs/concepts/services-networking/service/)
-- 🤔 *Exercise file: /Exercises/Kubernetes/2-Service-ClusterIP.yaml*
+- 🤔 _Exercise file: /Exercises/Kubernetes/2-Service-ClusterIP.yaml_
 
-> Communicating directly between Pods is cumbersome because the IP address of a Pod only exists for the lifetime of the Pod. A **Service** provides a static IP address linked to a DNS name and routes traffic into Pods. **ClusterIP** is the default type of a Service and gets an IP address which is only accessible *within* the cluster.
+> Communicating directly between Pods is cumbersome because the IP address of a Pod only exists for the lifetime of the Pod. A **Service** provides a static IP address linked to a DNS name and routes traffic into Pods. **ClusterIP** is the default type of a Service and gets an IP address which is only accessible _within_ the cluster.
 
 Create a ClusterIP Service to enable communication between the webapp and webapi.
 
@@ -56,13 +57,22 @@ kubectl port-forward deployments/webapp 4200:80
 
 1. Visit the webapp in your browser on http://localhost:4200. The webapp will load, but it will not be able reach the webapi. The webapp tries to communicate with the webapi using the domain name 'webapi', but this name is not registered yet with the internal DNS of Kubernetes.
 
-2. Create a ClusterIP Service for the webapi Pod using the Kubernetes manifest in the exercise file and the `kubectl apply` command. Confirm that the webapp is now able to reach the webapi.
+2. Create a ClusterIP Service for the webapi Pod using the Kubernetes manifest in the exercise file and the `kubectl apply` command.
+
+3. Remove the webapp pod to have the deployment create a new pod. The reverse proxy (Nginx) on the webapp needs to be restarted to connect to the upstream (webapi)
+
+```
+kubectl get pods
+kubectl delete pod <webapp-pod-name>
+```
+
+4. Set up port forwarding for the webapp and confirm that it is now able to reach the webapi.
 
 ## 3. External traffic: Create a NodePort Service
 
 - 📖 [Service documentation](https://kubernetes.io/docs/concepts/services-networking/service/)
-- 🤔 *Exercise file: /Exercises/Kubernetes/3-Service-NodePort.yaml*
-- 😏 *Solution file: /Solutions/Kubernetes/3-Service-NodePort.yaml*
+- 🤔 _Exercise file: /Exercises/Kubernetes/3-Service-NodePort.yaml_
+- 😏 _Solution file: /Solutions/Kubernetes/3-Service-NodePort.yaml_
 
 > **NodePort** is a type of Service that you can use to listen for traffic coming into the cluster and direct it to a Pod. Using a NodePort Service, every node in the cluster will listen on the specified port and send traffic to the target port of the Pod.
 
@@ -75,8 +85,8 @@ Create a NodePort Service to listen for traffic coming into your cluster and dir
 ## 4. Scaling applications: Scale out a Deployment
 
 - 📖 [Deployment documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
-- 🤔 *Exercise file: /Exercises/Kubernetes/4-Deployment-Replicas.yaml*
-- 😏 *Solution file: /Solutions/Kubernetes/4-Deployment-Replicas.yaml*
+- 🤔 _Exercise file: /Exercises/Kubernetes/4-Deployment-Replicas.yaml_
+- 😏 _Solution file: /Solutions/Kubernetes/4-Deployment-Replicas.yaml_
 
 > You may want to scale a Deployment to keep up with increasing traffic. Horizontally scaling is accomplished by changing the number of **replicas**.
 
@@ -109,8 +119,8 @@ kubectl scale deployment webapi --replicas=1
 ## 5. Health checks: Configure a Liveness Probe
 
 - 📖 [Liveness, Readiness and Startup Probes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
-- 🤔 *Exercise file: /Exercises/Kubernetes/5-Deployment-Liveness-Probe.yaml*
-- 😏 *Solution file: /Solutions/Kubernetes/5-Deployment-Liveness-Probe.yaml*
+- 🤔 _Exercise file: /Exercises/Kubernetes/5-Deployment-Liveness-Probe.yaml_
+- 😏 _Solution file: /Solutions/Kubernetes/5-Deployment-Liveness-Probe.yaml_
 
 > Kubernetes provides different types of probes to check the health of your application and act upon it. A **Liveness Probe** is used to restart a container when it's in a broken state (e.g. in case of a deadlock).
 
@@ -120,7 +130,7 @@ Configure a Liveness probe for your webapi Deployment.
 
 2. Visit the webapp in your browser via the NodePort Service. The webapp will load, but it will not be able reach the webapi.
 
-3. Find out what's happening with the webapi Pod by executing the  following command a few times:
+3. Find out what's happening with the webapi Pod by executing the following command a few times:
 
 ```
 kubectl get pod -l app=webapi
@@ -131,9 +141,9 @@ kubectl get pod -l app=webapi
 ## 6. Configuration: Create a ConfigMap
 
 - 📖 [ConfigMap documentation](https://kubernetes.io/docs/concepts/configuration/configmap/)
-- 🤔 *Exercise files:*
-  - */Exercises/Kubernetes/6-1-ConfigMap-Environment-Variable.yaml*
-  - */Exercises/Kubernetes/6-2-ConfigMap-File.yaml*
+- 🤔 _Exercise files:_
+  - _/Exercises/Kubernetes/6-1-ConfigMap-Environment-Variable.yaml_
+  - _/Exercises/Kubernetes/6-2-ConfigMap-File.yaml_
 
 > A **ConfigMap** is a storage unit intended for small amounts of non-confidential data. This data can be consumed by Pods as environment variables or files.
 
