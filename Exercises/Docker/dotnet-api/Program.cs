@@ -15,7 +15,7 @@ namespace dotnet_api
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((builderContext, config) =>
                 {
-                    config.AddJsonFile("config/appsettings.override.json", optional: true);
+                    config.SetBasePath(builderContext.HostingEnvironment.ContentRootPath).AddJsonFile("config/appsettings.override.json", optional: true);
                 })
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
