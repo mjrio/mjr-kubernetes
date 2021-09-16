@@ -7,16 +7,12 @@ FROM node:16.8.0-alpine3.13 AS builder
 WORKDIR /app
 # Copy all files from current directory to working dir in image
 COPY . .
+
 # install node modules and build assets
 RUN npm i && npm run build
 
 # nginx state for serving content
 FROM nginx:1.20.1-alpine
-
-# Upate the default nginx config
-RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
 # Set working directory to nginx asset directory
 WORKDIR /usr/share/nginx/html
 # Remove default nginx static assets
@@ -26,7 +22,11 @@ ARG dotnetApiUrl="http://localhost:5000/api"
 ENV DOTNET_API_URL=${dotnetApiUrl}
 # Copy static assets from builder stage
 COPY --from=builder /app/dist/angular-app .
+COPY --from=builder /app/nginx ./nginx
 # Containers run nginx with global directives and daemon off
 EXPOSE 80
+# Update the default nginx config
+RUN rm /etc/nginx/conf.d/default.conf
+
 # When the container starts, replace the env.js with values from environment variables
-CMD ["/bin/sh",  "-c",  "envsubst < /usr/share/nginx/html/assets/env.template.js > /usr/share/nginx/html/assets/env.js && exec nginx -g 'daemon off;'"]
+CMD ["/bin/sh",  "-c",  "nginx/nginx.config.sh && envsubst < /usr/share/nginx/html/assets/env.template.js > /usr/share/nginx/html/assets/env.js && exec nginx -g 'daemon off;'"]
