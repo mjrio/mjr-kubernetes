@@ -18,7 +18,7 @@ spec:
         image: dotnet-api
         imagePullPolicy: Never
         livenessProbe:
-        # 🔧 Fix the error with the liveness probe 
+        # 🔧 Fix the issue with the liveness probe when you are at step 4
         # 💡 Sometimes two characters are enough to kill your application...
           httpGet:
             path: /unhealthy

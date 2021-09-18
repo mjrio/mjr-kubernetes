@@ -135,13 +135,13 @@ Configure a Liveness probe for your webapi Deployment.
 
 2. Visit the webapp in your browser via the NodePort Service. The webapp will load, but it will not be able reach the webapi.
 
-3. Find out what's happening with the webapi Pod by executing the following command a few times:
+3. Find out what's happening with the webapi Pod by executing the following command:
 
 ```
-kubectl get pod -l app=webapi
+kubectl describe pod -l app=webapi
 ```
 
-4. Edit the Kubernetes manifest in the exercise file to fix the error and update your Deployment again with `kubectl apply`. Confirm that the webapi is running and not continuously restarting anymore.
+4. Edit the Kubernetes manifest in the exercise file to fix the issue and update your Deployment again using `kubectl apply`. Confirm that the issue is fixed.
 
 ## 6. Configuration: Create a ConfigMap
 
