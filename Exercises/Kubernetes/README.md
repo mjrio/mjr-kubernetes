@@ -49,24 +49,29 @@ kubectl get pod -l app=webapp
 
 Create a ClusterIP Service to enable communication between the webapp and webapi.
 
-1. Set up port forwarding to the webapp in your cluster:
+1. Check the logs of the webapp Pod using the `kubectl logs` command below. You'll see that the reverse proxy (Nginx) can't find the upstream host with domain name 'webapi'. The problem is that this name is not registered yet with the internal DNS of Kubernetes.
+
+```
+kubectl logs -l app=webapp
+```
+
+2. Create a ClusterIP Service for the webapi Pod using the Kubernetes manifest in the exercise file and the `kubectl apply` command.
+
+3. Remove the webapp Pod to have the Deployment create a new one. The reverse proxy on the webapp Pod needs to be restarted to be able to find the upstream host (webapi).
+
+```
+kubectl delete pod -l app=webapp
+```
+
+4. Check the logs of the webapp Pod again using the `kubectl logs` command and confirm that the problem is fixed.
+
+5. Set up port forwarding for the webapp Pod using the `kubectl port-forward` command:
 
 ```
 kubectl port-forward deployments/webapp 4200:80
 ```
 
-2. Visit the webapp in your browser on http://localhost:4200. The webapp will load, but it will not be able reach the webapi. The webapp tries to communicate with the webapi using the domain name 'webapi', but this name is not registered yet with the internal DNS of Kubernetes.
-
-3. Create a ClusterIP Service for the webapi Pod using the Kubernetes manifest in the exercise file and the `kubectl apply` command.
-
-4. Remove the webapp pod to have the deployment create a new pod. The reverse proxy (Nginx) on the webapp needs to be restarted to connect to the upstream (webapi)
-
-```
-kubectl get pods
-kubectl delete pod <webapp-pod-name>
-```
-
-5. Set up port forwarding for the webapp and confirm that it is now able to reach the webapi.
+6. Visit the webapp in your browser on http://localhost:4200 and confirm that the webap is now able to reach the webapi.
 
 ## 3. External traffic: Create a NodePort Service
 
