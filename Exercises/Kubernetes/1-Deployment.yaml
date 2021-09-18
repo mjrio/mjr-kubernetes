@@ -26,5 +26,6 @@ spec:
             value: "k8s"
           - name: PROD
             value: "true"
+---
 # 🔧 Create a second Deployment for the webapi
-# 💡 Copy paste is your friend ;)
+# 💡 Copy paste is your friend, but you'll need to make some small adjustments and get rid of the environment variables
