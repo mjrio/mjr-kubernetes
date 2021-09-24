@@ -29,4 +29,4 @@ EXPOSE 80
 RUN rm /etc/nginx/conf.d/default.conf
 
 # When the container starts, replace the env.js with values from environment variables
-CMD ["/bin/sh",  "-c",  "nginx/nginx.config.sh && envsubst < /usr/share/nginx/html/assets/env.template.js > /usr/share/nginx/html/assets/env.js && exec nginx -g 'daemon off;'"]
+CMD ["/bin/sh",  "-c",  "chmod +x ./nginx/nginx.config.sh && ./nginx/nginx.config.sh && envsubst < /usr/share/nginx/html/assets/env.template.js > /usr/share/nginx/html/assets/env.js && exec nginx -g 'daemon off;'"]
